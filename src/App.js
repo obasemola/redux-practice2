@@ -1,36 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getId } from './reducers/anecdoteReducer'
+import { vote } from './reducers/anecdoteReducer'
+import handleSubmit from './components/AnecdoteForm'
 
 const App = () => {
-  const anecdotes = useSelector(state => state)
+
+  useEffect(() => {
+    
+  })
+  const anecdotes = useSelector(state => state).sort((a, b) =>{
+    return b.votes - a.votes
+  })
+
   const dispatch = useDispatch()
 
-  const vote = (id) => {
-    return {
-      type: 'INCREMENT',
-    }
-  }
 
-  const addAnecdote = (anecdote) => {
-    return {
-      type: 'ADD',
-      data: {
-        content: anecdote,
-        id: getId(),
-        votes: 0
-      }
-    }
-  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const anecdote = e.target.anecdote.value;
-    dispatch(addAnecdote(anecdote))
-    e.target.anecdote.value = ''
-    console.log(anecdote)
-  }
 
 
 
