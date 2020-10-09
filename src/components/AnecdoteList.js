@@ -23,7 +23,16 @@ const AnecdoteList = () => {
   const handleVote = (e) => {
     const id = e.target.id;
     const anecdote = e.target.name
-    dispatch(vote(id))
+    const oldAnecdote = anecdotes.find((anecdote) => {
+      return id === anecdote.id
+    })
+
+    const toBeUpdatedAnecdote = {
+      ...oldAnecdote,
+      votes: oldAnecdote.votes + 1
+    }
+
+    dispatch(vote(id, toBeUpdatedAnecdote))
     dispatch(showNotification(anecdote))
     setTimeout(() => {
       dispatch(clearNotification())
