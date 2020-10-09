@@ -1,8 +1,9 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addAnecdote } from '../reducers/anecdoteReducer'
 import { showNotification } from '../reducers/notificationReducer'
 import { clearNotification } from '../reducers/notificationReducer'
+import { createAnecdote } from '../services/anecdotes'
 
 
 
@@ -10,15 +11,21 @@ const AnecdoteForm = () => {
   const dispatch = useDispatch()
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const anecdote = e.target.anecdote.value;
-    dispatch(addAnecdote(anecdote))
-    dispatch(showNotification(anecdote))
+    const content = e.target.anecdote.value;
+    e.target.anecdote.value = ''
+    const anecdote = {
+      content,
+      votes: 0
+    }
+    const newAnecdote = await createAnecdote(anecdote)
+    dispatch(addAnecdote(newAnecdote))
+    dispatch(showNotification(content))
     setTimeout(() => {
       dispatch(clearNotification())
     }, 5000)
-    e.target.anecdote.value = ''
+
 
   }
 

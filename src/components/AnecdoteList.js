@@ -17,9 +17,6 @@ const AnecdoteList = () => {
   }).sort((a, b) => {
     return b.votes - a.votes
   })
-  
-  
-  
 
 
   const dispatch = useDispatch()
