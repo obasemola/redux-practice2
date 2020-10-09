@@ -7,11 +7,11 @@ import { clearNotification } from '../reducers/notificationReducer'
 
 const AnecdoteList = () => {
   const anecdotes = useSelector(state => {
-    if(state.filters === ''){
+    if(state.filter === ''){
       return state.anecdotes
     } else{
       return state.anecdotes.filter((anecdote) => {
-        return anecdote.content.toLowerCase().includes(state.filters.toLowerCase())
+        return anecdote.content.toLowerCase().includes(state.filter.toLowerCase())
       })
     }
   }).sort((a, b) => {

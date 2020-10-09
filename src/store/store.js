@@ -7,7 +7,7 @@ import filterReducer from '../reducers/filterReducer'
 const reducer = combineReducers({
   anecdotes: anecdotesReducer,
   notifications: notificationReducer,
-  filters: filterReducer
+  filter: filterReducer
 })
 
 
