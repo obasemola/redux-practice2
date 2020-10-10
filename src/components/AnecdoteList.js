@@ -1,8 +1,7 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, connect } from 'react-redux'
 import { vote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
-// import { clearNotification } from '../reducers/notificationReducer'
 
 
 const AnecdoteList = () => {
@@ -53,4 +52,15 @@ const AnecdoteList = () => {
   )
 }
 
-export default AnecdoteList
+const mapStateToProps = (state) => {
+  // checking the state of the application
+  console.log(state)
+  return {
+    anecdotes: state.anecdotes,
+    filter: state.filter
+  }
+}
+
+const ConnectedAnecdotes = connect(mapStateToProps)(AnecdoteList)
+
+export default ConnectedAnecdotes
