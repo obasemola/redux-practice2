@@ -1,11 +1,17 @@
+let clear = null;
 export const setNotification = (notification, time) => {
   return dispatch => {
+
     dispatch({
       type: 'SHOW',
       notification,
     })
 
-    setTimeout(() => {
+    if(clear){
+      clearTimeout(clear)
+    }
+
+    clear = setTimeout(() => {
       dispatch({
         type: 'SHOW',
         notification: '',

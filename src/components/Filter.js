@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, connect } from 'react-redux'
 import { searchText } from '../reducers/filterReducer'
 
 
@@ -22,4 +22,6 @@ const Filter = () => {
   )
 }
 
-export default Filter
+const connectedFilter = connect()(Filter)
+
+export default connectedFilter
