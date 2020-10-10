@@ -4,25 +4,30 @@ import { vote } from '../reducers/anecdoteReducer'
 import { setNotification } from '../reducers/notificationReducer'
 
 
-const AnecdoteList = () => {
-  const anecdotes = useSelector(state => {
-    if(state.filter === ''){
-      return state.anecdotes
+const AnecdoteList = (props) => {
+  const anecdotes = () => {
+    if(props.filter === ''){
+      return props.anecdotes
     } else{
-      return state.anecdotes.filter((anecdote) => {
-        return anecdote.content.toLowerCase().includes(state.filter.toLowerCase())
+      return props.anecdotes.filter((anecdote) => {
+        return anecdote.content.toLowerCase().includes(props.filter.toLowerCase())
       })
     }
-  }).sort((a, b) => {
+  }
+
+  const anecdotesToShow = anecdotes().sort((a, b) => {
     return b.votes - a.votes
   })
+
+  
+
 
 
   const dispatch = useDispatch()
   const handleVote = (e) => {
     const id = e.target.id;
     const anecdote = e.target.name
-    const oldAnecdote = anecdotes.find((anecdote) => {
+    const oldAnecdote = anecdotesToShow.find((anecdote) => {
       return id === anecdote.id
     })
 
@@ -37,7 +42,7 @@ const AnecdoteList = () => {
 
   return (
     <div>
-      {anecdotes.map(anecdote =>
+      {anecdotesToShow.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
